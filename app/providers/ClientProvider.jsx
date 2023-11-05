@@ -6,7 +6,6 @@ import store from "../../store/store";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
 import { Toaster } from "react-hot-toast";
-import Sidebar from "@/components/Generals/Sidebar/Sidebar";
 import { usePathname } from "next/navigation";
 
 const ClientProvider = ({ children }) => {
@@ -20,9 +19,6 @@ const ClientProvider = ({ children }) => {
         <Provider store={store}>
           <Navbar />
           <div className="flex mt-[60px]">
-            {(urlPath !== "/signin" ||
-              urlPath !== "/signup" ||
-              urlPath !== "/") && <Sidebar />}
             {children}
           </div>
           <Toaster />
