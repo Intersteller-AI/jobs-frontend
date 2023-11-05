@@ -28,7 +28,7 @@ const Navbar = () => {
           : "fixed top-0"
       } w-full z-[999] flex items-center justify-between min-h-[60px] drop-shadow-sm bg-white border md:px-6 px-4`}
     >
-      {user.email ? (
+      {user?.email ? (
         <>
           <div className="flex items-center gap-10">
             <div className="w-28 max-h-[60px] flex items-center justify-center overflow-hidden">
