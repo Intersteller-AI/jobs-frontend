@@ -4,15 +4,26 @@ import Sidebar from "@/components/Generals/Sidebar";
 import JobCard from "@/components/JobCard";
 import { getAllJobs } from "@/services/jobs";
 import { useQuery } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function Home() {
   const [createJobModal, setCreateJobModal] = useState(false);
+  const router = useRouter();
 
   const { data } = useQuery({
     queryFn: () => getAllJobs(),
     queryKey: ["jobs"],
   });
+
+  const { userInfo } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (!userInfo) {
+      router.push("/signin");
+    }
+  }, []);
 
   return (
     <div className="h-screen w-full flex gap-6 lg:px-44 px-4 py-8 bg-[#F4F2EE] relative">
