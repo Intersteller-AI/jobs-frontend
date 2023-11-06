@@ -4,7 +4,7 @@ import { AiOutlinePushpin } from "react-icons/ai";
 
 import Image from "next/image";
 import { IoIosPeople } from "react-icons/io";
-import { calculateTime } from "@/utils/CalculateTime";
+import { calculateTime } from "@/utils/calculateTime";
 
 const JobCard = ({ jobDetails }) => {
 
