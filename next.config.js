@@ -14,6 +14,14 @@ const nextConfig = {
         protocol: "https",
         hostname: "blog-app-backend-e3mj.onrender.com",
       },
+      {
+        protocol: "https",
+        hostname: "media.licdn.com",
+      },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
     ],
   },
 };

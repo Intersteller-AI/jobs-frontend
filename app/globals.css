@@ -43,6 +43,12 @@
     opacity: 1;
 }
 
+.myQuillEditor .ql-container {
+    min-height: 300px;
+    /* or whatever height you want */
+}
+
+
 /* * {
     background: rgba(32, 178, 171, 0.162);
 } */

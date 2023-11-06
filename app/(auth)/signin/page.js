@@ -46,7 +46,7 @@ const page = () => {
 
   useEffect(() => {
     if (userInfo) {
-      router.push("/meeting");
+      router.push("/");
     }
   }, [userInfo]);
 

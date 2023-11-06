@@ -4,6 +4,8 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { FaUserAlt } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import { AiFillLinkedin } from "react-icons/ai";
+
 
 const Navbar = () => {
   const urlPath = usePathname();
@@ -22,36 +24,17 @@ const Navbar = () => {
 
   return (
     <div
-      className={`${
-        urlPath === "/signin" || urlPath === "/signup"
-          ? "static"
-          : "fixed top-0"
-      } w-full z-[999] flex items-center justify-between min-h-[60px] drop-shadow-sm bg-white border md:px-6 px-4`}
+      className={`${urlPath === "/signin" || urlPath === "/signup"
+        ? "static"
+        : "fixed top-0"
+        } w-full z-[999] flex items-center justify-between min-h-[60px] drop-shadow-sm bg-white border lg:px-44 px-4 py-2`}
     >
       {user?.email ? (
         <>
           <div className="flex items-center gap-10">
-            <div className="w-28 max-h-[60px] flex items-center justify-center overflow-hidden">
-              <Image
-                className="w-full h-full object-cover object-center"
-                width={100}
-                height={100}
-                src="/assets/logo.svg"
-                alt="logo"
-              />
+            <div className="max-h-[60px] flex items-center justify-center overflow-hidden">
+              <AiFillLinkedin size={45} className="text-blue-700" />
             </div>
-            <h1 className="text-base transition-all duration-150 hover:cursor-pointer hover:text-dullBlue font-medium text-dullGray capitalize">
-              products
-            </h1>
-            <h1 className="text-base transition-all duration-150 hover:cursor-pointer hover:text-dullBlue font-medium text-dullGray capitalize">
-              solutions
-            </h1>
-            <h1 className="text-base transition-all duration-150 hover:cursor-pointer hover:text-dullBlue font-medium text-dullGray capitalize">
-              resources
-            </h1>
-            <h1 className="text-base transition-all duration-150 hover:cursor-pointer hover:text-dullBlue font-medium text-dullGray capitalize">
-              plans & pricing
-            </h1>{" "}
           </div>
           <div className="flex items-center gap-6">
             <h1 className="text-base transition-all duration-150 hover:cursor-pointer hover:text-dullBlue font-semibold text-dullGray capitalize">
@@ -66,7 +49,7 @@ const Navbar = () => {
             <h1 className="text-base transition-all duration-150 hover:cursor-pointer hover:text-dullBlue font-semibold text-dullGray capitalize">
               Web App
             </h1>
-            <div className="cursor-pointer flex items-center justify-center w-9 h-9 overflow-hidden rounded-md">
+            <div className="cursor-pointer flex items-center justify-center w-7 overflow-hidden rounded-md flex-col gap-1">
               {user.avatar ? (
                 <Image
                   width={100}
@@ -84,25 +67,20 @@ const Navbar = () => {
                   className="w-full h-full object-cover"
                 />
               )}
+              <h1 className="text-[10px] text-neutral-700">Me</h1>
             </div>
           </div>
         </>
       ) : (
         <>
-          <div className="w-20 max-h-[60px] flex items-center justify-center">
-            <Image
-              className="w-full h-full"
-              width={100}
-              height={100}
-              src="/assets/logo.svg"
-              alt="logo"
-            />
+          <div className=" flex items-center justify-center">
+            <AiFillLinkedin size={45} className="text-blue-700" />
           </div>
           <div className="flex items-center">
             <div className="flex items-center gap-6">
               {urlPath === "/signin" ? (
                 <h1 className="font-normal">
-                  New to Zoom?{" "}
+                  New to LinkedIn?{" "}
                   <Link href="signup" className="text-dullBlue">
                     Sign Up Free
                   </Link>

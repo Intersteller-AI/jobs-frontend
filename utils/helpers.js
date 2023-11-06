@@ -1,3 +1,6 @@
+import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
 export const generatePassword = () => {
   var length = 6,
     charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
@@ -7,3 +10,7 @@ export const generatePassword = () => {
   }
   return retVal;
 };
+
+export function cn(...inputs) {
+  return twMerge(clsx(inputs));
+}

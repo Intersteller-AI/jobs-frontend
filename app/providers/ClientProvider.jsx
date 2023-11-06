@@ -11,14 +11,12 @@ import { usePathname } from "next/navigation";
 const ClientProvider = ({ children }) => {
   const [client] = useState(new QueryClient());
 
-  const urlPath = usePathname();
-
   return (
     <>
       <QueryClientProvider client={client}>
         <Provider store={store}>
           <Navbar />
-          <div className="flex mt-[60px]">
+          <div className="flex mt-[65px]">
             {children}
           </div>
           <Toaster />

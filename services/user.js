@@ -1,6 +1,33 @@
 import axios from "axios";
 import { HOST } from "./server";
 
+export const registerEmployer = async ({
+  name,
+  role = "employer",
+  email,
+  password,
+}) => {
+  try {
+    const { data } = await axios.post(
+      `${HOST}/api/users/signup`,
+      {
+        name,
+        email,
+        password,
+        role,
+      },
+      { withCredentials: true }
+    );
+
+    return data;
+  } catch (error) {
+    if (error.response && error.response.data.message) {
+      throw new Error(error.response.data.message);
+    }
+    throw new Error(error.message);
+  }
+};
+
 export const registerUser = async ({ name, email, password }) => {
   try {
     const { data } = await axios.post(
