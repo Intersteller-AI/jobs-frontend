@@ -1,4 +1,4 @@
-export function calculateTime(timestamp) {
+export const calculateTime = (timestamp) => {
   const now = new Date();
   const pastDate = new Date(timestamp);
   const timeDifference = now - pastDate;
@@ -25,4 +25,4 @@ export function calculateTime(timestamp) {
   } else {
     return weeks + " weeks ago";
   }
-}
+};
