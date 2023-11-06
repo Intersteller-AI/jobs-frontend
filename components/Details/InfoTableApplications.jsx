@@ -20,7 +20,7 @@ import { AiFillDelete } from "react-icons/ai";
 import Image from "next/image";
 
 const columns = [
-  { field: "avatar", headerName: "", width: 20 },
+  { field: "avatar", headerName: "", width: 80 },
   { field: "user", headerName: "User", width: 180 },
   {
     field: "status",
@@ -83,7 +83,7 @@ const InfoTableApplications = ({ rows }) => {
               ) : (
                 rows?.map((row, index) => (
                   <TableRow key={index} className="cursor-pointer">
-                    <TableCell align="left" width={20} className="capitalize font-semibold">
+                    <TableCell align="left" width={80} className="capitalize font-semibold">
                       <Image src={row.user.avatar ? row.user.avatar : "/assets/user.png"} width={200} height={200} alt="jobo" className="w-7 h-7 rounded-full" />
                     </TableCell>
                     <TableCell align="left" width={180} className="capitalize font-semibold">
