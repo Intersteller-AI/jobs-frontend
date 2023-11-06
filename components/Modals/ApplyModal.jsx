@@ -37,15 +37,6 @@ const ApplyModal = ({ applyModal, setApplyModal, jobId }) => {
 
   const [fileLink, setFileLink] = useState();
 
-  const addFileLink = (link) => {
-    setFileLink(link);
-
-    setDetails((prevDetails) => ({
-      ...prevDetails,
-      resume_link: link,
-    }));
-  };
-
   const { mutate, isLoading } = useMutation({
     mutationFn: (details) => postApplications(details),
     onSuccess: (data) => {
@@ -58,7 +49,6 @@ const ApplyModal = ({ applyModal, setApplyModal, jobId }) => {
         resume_link: "",
         jobId: ""
       })
-      setStep(1)
       router.refresh()
     },
     onError: (error) => {
@@ -69,7 +59,8 @@ const ApplyModal = ({ applyModal, setApplyModal, jobId }) => {
 
 
   const handleApply = () => {
-    console.log({...details, jobId});
+    console.log({ ...details, jobId });
+    mutate({ ...details, jobId })
   }
 
   return (
@@ -103,52 +94,35 @@ const ApplyModal = ({ applyModal, setApplyModal, jobId }) => {
           }}
         />
         <div className="lg:w-[40vw] md:w-[80vw] w-[90vw]">
-          {step === 1 ? (
-            <div className="w-full">
-              <h1 className="font-semibold text-3xl">Apply for the job</h1>
+          <div className="w-full">
+            <h1 className="font-semibold text-3xl">Apply for the job</h1>
 
-              <div className="flex flex-col gap-1 mt-6">
-                <h1 className="text-neutral-600 font-medium">Email</h1>
-                <input value={details.email} onChange={handleChange} type="text" name="email" placeholder="give email" className="border-2 border-neutral-400 rounded-sm w-full px-2 py-1 mt-2" />
-              </div>
-              <div className="flex flex-col gap-1 mt-6">
-                <h1 className="text-neutral-600 font-medium">Number</h1>
-                <input value={details.number} onChange={handleChange} type="text" name="number" placeholder="give number" className="border-2 border-neutral-400 rounded-sm w-full mt-2 px-2 py-1" />
-              </div>
-              <button
-                onClick={() => setStep(2)}
-                className="px-6 py-2 bg-[#36518F] w-full rounded-md text-white mt-6 font-medium"
-              >
-                Next
-              </button>
+            <div className="flex flex-col gap-1 mt-6">
+              <h1 className="text-neutral-600 font-medium">Email</h1>
+              <input value={details.email} onChange={handleChange} type="text" name="email" placeholder="give email" className="border-2 border-neutral-400 rounded-sm w-full px-2 py-1 mt-2" />
             </div>
-          ) : (
-            <div className="w-full max-h-[80vh] overflow-y-auto custom-scrollbar">
-              <div className="w-full md:flex-1">
-                <h1 className="text-neutral-500">Upload Resume</h1>
-                <div className="flex flex-row items-center gap-x-3">
-                  <UploadPdf onAddFileLink={addFileLink} />
-                  <a className="text-[#B8B8B8]" href={fileLink} target="_blank">
-                    {fileLink ? fileLink.split('/').pop().substring(0, 40) + "..." : 'resume.pdf'}
-                  </a>
-                </div>
-              </div>
-              <div className="flex items-center gap-2 mt-6 bg-white z-30">
-                <button
-                  onClick={() => setStep(1)}
-                  className="px-6 py-2 border-2 border-[#36518F] flex-1 rounded-md text-[#36518F] font-medium"
-                >
-                  Back
-                </button>
-                <button
-                  onClick={handleApply}
-                  className="px-6 py-2 bg-[#36518F] flex-1 rounded-md text-white font-medium"
-                >
-                  Apply
-                </button>
+            <div className="flex flex-col gap-1 mt-6">
+              <h1 className="text-neutral-600 font-medium">Number</h1>
+              <input value={details.number} onChange={handleChange} type="text" name="number" placeholder="give number" className="border-2 border-neutral-400 rounded-sm w-full mt-2 px-2 py-1" />
+            </div>
+            <div className="w-full mt-6">
+              <h1 className="text-neutral-600 font-semibold">Upload Resume</h1>
+              <div className="flex flex-row items-center gap-x-3">
+                <UploadPdf setDetails={setDetails} />
+                <a className="text-[#B8B8B8]" href={fileLink} target="_blank">
+                  {details.resume_link ? details.resume_link : 'resume.pdf'}
+                </a>
               </div>
             </div>
-          )}
+
+            <button
+              onClick={handleApply}
+              className="px-6 py-2 bg-[#36518F] w-full rounded-md text-white mt-6 font-medium"
+            >
+              {isLoading ? "Loading" : "Apply"}
+            </button>
+          </div>
+
         </div>
       </Sheet>
     </Modal >

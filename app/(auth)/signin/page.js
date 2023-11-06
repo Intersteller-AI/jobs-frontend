@@ -61,7 +61,7 @@ const page = () => {
     },
   });
 
-  const { mutate } = useMutation({
+  const { mutate, isLoading } = useMutation({
     mutationFn: ({ email, password }) => {
       return loginUser({ email, password });
     },
@@ -125,10 +125,11 @@ const page = () => {
               </Link>
             </div>
             <button
+              disabled={isLoading}
               className="font-amalde bg-[#0E72ED] transition-all duration-150 hover:bg-[#176bd3] flex items-center justify-center w-full text-white py-2 rounded-xl text-base capitalize font-medium"
               type="submit"
             >
-              sign in
+              {isLoading ? "Loading" : "sign in"}
             </button>
 
             <h4 className="text-neutral-500 text-sm md:text-base">

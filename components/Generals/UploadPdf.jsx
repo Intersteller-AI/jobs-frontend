@@ -12,6 +12,20 @@ import { HOST } from "@/services/server";
 
 import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import { useMutation } from "@tanstack/react-query";
+
+
+const fileUpload = async (formData) => {
+  try {
+    const { data } = await axios.post(`${HOST}/api/applications/upload/file`, formData, {
+      withCredentials: true
+    });
+
+    return data
+  } catch (error) {
+    console.error('Error in deleting the file:', error);
+  }
+}
 
 function FileUpload({ onFileUpload }) {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -58,25 +72,38 @@ function FileUpload({ onFileUpload }) {
 }
 
 
-export function UploadPdf({ onAddFileLink }) {
+export function UploadPdf({ setDetails }) {
   const [fileUploadResponse, setFileUploadResponse] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
 
-  const handleFileLinkChange = async (formData) => {
 
-    try {
-      const { data } = await axios.post(`${HOST}/api/applications/upload/file`, formData, {
-        withCredentials: true
-      });
-      setFileUploadResponse(data.pdfFile);
-    } catch (error) {
-      console.error('Error in deleting the question:', error);
+  const { mutate, isLoading } = useMutation({
+    mutationFn: (formData) => fileUpload(formData),
+    onSuccess: (data) => {
+      if (data) {
+        setDetails((prevDetails) => ({
+          ...prevDetails,
+          resume_link: data.user.pdfFile,
+        }));
+        setFileUploadResponse(data.user.pdfFile)
+      }
+    },
+    onError: (err) => {
+      console.log(err);
     }
+  })
+
+  const handleFileLinkChange = async (formData) => {
+    mutate(formData)
   }
-
   const handleAddClick = () => {
+    // setDetails((prevDetails) => ({
+    //   ...prevDetails,
+    //   resume_link: fileUploadResponse,
+    // }));
 
-    onAddFileLink(fileUploadResponse);
+    console.log(fileUploadResponse);
+    // onAddFileLink(fileUploadResponse);
     setModalOpen(false);
   };
 
@@ -85,7 +112,7 @@ export function UploadPdf({ onAddFileLink }) {
       <DialogTrigger asChild>
         <div className=" rounded-md text-white">
           <div className="flex flex-row items-center">
-            <button className="px-6 py-3 bg-[#36518F] rounded-full mt-2 text-white font-medium" onClick={() => setModalOpen(true)}>
+            <button className="px-6 py-3 bg-[#36518F] rounded-md mt-2 text-white font-medium" onClick={() => setModalOpen(true)}>
               Upload
             </button>
           </div>

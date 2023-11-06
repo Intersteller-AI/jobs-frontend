@@ -30,10 +30,10 @@ const page = () => {
     },
   });
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const router = useRouter();
 
-  const { mutate } = useMutation({
+  const { mutate, isLoading } = useMutation({
     mutationFn: ({ name, email, password }) => {
       if (step === "employer") {
         return registerEmployer({ name, email, password });
@@ -130,10 +130,11 @@ const page = () => {
                   Back
                 </button>
                 <button
+                  disabled={isLoading}
                   className="font-amalde bg-[#0E72ED] transition-all duration-150 hover:bg-[#176bd3] flex items-center justify-center flex-1 text-white py-2 rounded-xl text-base capitalize font-medium"
                   type="submit"
                 >
-                  continue
+                  {isLoading ? "Loading" : "Continue"}
                 </button>
               </div>
               <h4 className="text-neutral-500 text-sm md:text-base">

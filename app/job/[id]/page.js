@@ -7,10 +7,12 @@ import { useQuery } from "@tanstack/react-query";
 import { getJob } from "@/services/jobs";
 import parse from "html-react-parser";
 import ApplyModal from "@/components/Modals/ApplyModal";
+import { useSelector } from "react-redux";
 
 function JobDetails({ params }) {
   const { id } = params;
 
+  const { userInfo } = useSelector((state) => state.user);
   const [modalOpen, setmodalOpen] = useState(false);
   const [jobDetails, setJobDetails] = useState({
     companyLogo: "",
@@ -25,7 +27,7 @@ function JobDetails({ params }) {
 
   const { data } = useQuery({
     queryFn: () => getJob(id),
-    queryKey: ["jobs/"],
+    queryKey: ["jobs/12"],
   });
 
   useEffect(() => {
@@ -43,17 +45,24 @@ function JobDetails({ params }) {
           <JobCard jobDetails={jobDetails} />
           <div className="w-full flex items-center gap-4">
             <button
+              disabled={
+                data?.job?.applicants?.includes(userInfo?._id) ? true : false
+              }
               onClick={() => setmodalOpen(true)}
-              className="px-8 py-2 bg-[#2e55b0] rounded-full text-white  font-semibold"
+              className="px-8 py-2 disabled:bg-slate-500 bg-[#2e55b0] rounded-full text-white  font-semibold"
             >
-              Apply
+              {data?.job?.applicants?.includes(userInfo?._id)
+                ? "Applied"
+                : "Apply"}
             </button>
-            <button
-              onClick={handleSave}
-              className="px-6 py-2 border-2 border-[#2553bd] rounded-full text-[#3556a4] font-semibold"
-            >
-              Save
-            </button>
+            {!data?.job?.applicants?.includes(userInfo?._id) && (
+              <button
+                onClick={handleSave}
+                className="px-6 py-2 border-2 border-[#2553bd] rounded-full text-[#3556a4] font-semibold"
+              >
+                Save
+              </button>
+            )}
           </div>
           <div className="px-6 py-5 bg-white drop-shadow-sm rounded-xl">
             <h1 className="text-2xl font-semibold mb-8">About the job</h1>

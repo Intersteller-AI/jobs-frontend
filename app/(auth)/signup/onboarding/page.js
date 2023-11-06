@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 const page = () => {
   const { userInfo } = useSelector((state) => state.user);
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -34,6 +35,7 @@ const page = () => {
     try {
       const combinedData = { ...details };
       console.log(combinedData);
+      setIsLoading(true);
       const { data } = await axios.post(
         `${HOST}/api/users/profile/update`,
         combinedData,
@@ -41,6 +43,7 @@ const page = () => {
           withCredentials: true,
         }
       );
+      setIsLoading(false);
       if (data.user) {
         toast.success("Onboarding completed");
         router.push("/");
@@ -66,10 +69,11 @@ const page = () => {
       </div>
       <div className="w-full flex items-center justify-center gap-4">
         <button
+          disabled={isLoading}
           onClick={handleSubmit}
           className="px-6 py-2 text-lg bg-[#36518F] rounded-full text-white mt-6 font-medium"
         >
-          Submit
+          {isLoading ? "Loading" : "Submit"}
         </button>
       </div>
     </div>

@@ -10,7 +10,7 @@ const JobCard = ({ jobDetails }) => {
 
   return (
     <div className="bg-white rounded-xl w-full max-sm:h-fit py-4 drop-shadow-sm">
-      <div className="p-4 pt-0 flex flex-col md:flex-row items-center md:text-lg text-base lg:gap-x-4 max-sm:mt-2">
+      <div className="p-4 pt-0 flex flex-col md:flex-row items-center md:text-lg text-base md:gap-4 max-sm:mt-2">
         <Image className="md:w-16 w-12" src={`${jobDetails?.user?.companyLogo || jobDetails.companyLogo}`} width={50} height={50} alt="logo" />
         <div className="mt-2 md:mt-0 flex flex-col gap-y-1">
           <p className="font-semibold tracking-wider capitalize">
