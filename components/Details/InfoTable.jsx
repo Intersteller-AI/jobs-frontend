@@ -19,10 +19,10 @@ import { IoIosShareAlt } from "react-icons/io";
 import { AiFillDelete } from "react-icons/ai";
 
 const columns = [
-  { field: "designation", headerName: "Title", width: 180 },
+  { field: "title", headerName: "Title", width: 180 },
   {
-    field: "status",
-    headerName: "Status",
+    field: "deadline",
+    headerName: "Deadline",
     width: 220,
   },
   {
@@ -31,8 +31,8 @@ const columns = [
     width: 220,
   },
   {
-    field: "appicants",
-    headerName: "Appicants",
+    field: "applicants",
+    headerName: "Applicants",
     width: 220,
   },
   {
@@ -59,6 +59,8 @@ const InfoTable = ({ rows }) => {
   };
 
   const handleDelete = () => { }
+
+  console.log(rows);
 
   return (
     <div className="relative overflow-hidden w-full">
@@ -91,34 +93,37 @@ const InfoTable = ({ rows }) => {
               ) : (
                 rows?.map((row, index) => (
                   <TableRow key={index} className="cursor-pointer">
-                    <TableCell align="left" width={180} className="capitalize">
-                      {row.designation}
+                    <TableCell align="left" width={180} className="capitalize font-semibold">
+                      {row.title}
                     </TableCell>
-                    <TableCell align="left" width={180} className="capitalize">
+                    <TableCell align="left" width={180} className="capitalize font-semibold">
+                      {new Date(row.deadline).toDateString()}
+                    </TableCell>
+                    {/* <TableCell align="left" width={180} className="capitalize">
                       <div className="flex items-center justify-start gap-2 capitalize">
                         <span
-                          className={`h-2 w-2 rounded-full ${row?.status.toLowerCase() === "draft"
+                          className={`h-2 w-2 rounded-full ${row?.status.toLowerCase() === "in touch"
                             ? "bg-yellow-300"
-                            : row?.status.toLowerCase() === "done"
+                            : row?.status.toLowerCase() === "applied"
                               ? "bg-blue-500"
-                              : row?.status.toLowerCase() === "active"
+                              : row?.status.toLowerCase() === "shortlisted"
                                 ? "bg-green-500"
                                 : "bg-red-500"
                             } drop-shadow-sm`}
                         ></span>
                         <span className="font-semibold">{row?.status}</span>
                       </div>{" "}
-                    </TableCell>
+                    </TableCell> */}
                     <TableCell align="left" width={80} className="capitalize">
                       <div className="flex items-center gap-4">
-                        <button className="px-4 py-2 font-medium bg-paleBlue text-white rounded-md capitalize text-sm">
+                        <Link href={`/applications/${row._id}`} className="px-4 py-2 font-medium bg-paleBlue text-white rounded-md capitalize text-sm">
                           review
-                        </button>
-                        <AiFillDelete size={20} className="text-red-500" />
+                        </Link>
+                        <AiFillDelete size={20} className="text-red-500" onClick={() => handleDelete(row._id)} />
                       </div>
                     </TableCell>
                     <TableCell align="left" width={180} className="capitalize">
-                      {row.applicants}
+                      {row.applicants.length}
                     </TableCell>
                     <TableCell align="left" width={80} className="capitalize">
                       {/* <Link href={row.share_link}> */}

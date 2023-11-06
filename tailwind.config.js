@@ -17,6 +17,8 @@ module.exports = {
         dullWhite: "#F7F9FA",
         dullBlue: "#0E72ED",
         dullGray: "#666484",
+        paleBlue: "#36518F",
+        blueSky: "#E8F3FF",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
