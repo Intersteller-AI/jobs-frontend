@@ -10,6 +10,7 @@ import {
 import { HiDocumentCheck, HiOutlinePencilSquare } from "react-icons/hi2";
 import { PiBagSimpleBold } from "react-icons/pi";
 import CreateJobModal from "../Modals/CreateJobModal";
+import Link from "next/link";
 
 const Sidebar = ({ createJobModal, setCreateJobModal }) => {
 
@@ -44,9 +45,11 @@ const Sidebar = ({ createJobModal, setCreateJobModal }) => {
             <HiPencilAlt size={20} />
             <h1 className="underline">Post a free job</h1>
           </div>
-          <div className="font-semibold flex items-center gap-4 cursor-pointer text-sm text-neutral-700">
-            <PiBagSimpleBold size={20} /> Manage job posts
-          </div>
+          <Link href={`/applications`}>
+            <div className="font-semibold flex items-center gap-4 cursor-pointer text-sm text-neutral-700">
+              <PiBagSimpleBold size={20} /> Manage Applications
+            </div>
+          </Link>
         </div>
       </div>
       <CreateJobModal createJobModal={createJobModal} setCreateJobModal={setCreateJobModal} />

@@ -12,6 +12,17 @@ export const getAllApplications = async () => {
   }
 };
 
+export const getJobApplications = async (id) => {
+  try {
+    const { data } = await axios.get(`${HOST}/api/relation/${id}`, {
+      withCredentials: true,
+    });
+    return data;
+  } catch (ex) {
+    throw new Error(ex.message);
+  }
+};
+
 export const postApplications = async (details) => {
   try {
     const { data } = await axios.post(
